@@ -1,0 +1,10 @@
+{
+    "server_config": {
+        "port":3000
+    },
+
+    "legacy_ridge": {
+        "base_url": "https://cityofwestminster.cps.golf",
+        "api_resource_endpoint": "/onlineresweb/Home/Configuration"
+    }
+}

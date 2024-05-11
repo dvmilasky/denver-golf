@@ -1,0 +1,25 @@
+{
+  "name": "denver-golf",
+  "version": "1.0.0",
+  "description": "Golf tee time bot",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvmilasky/denver-golf.git"
+  },
+  "author": "David Milasky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dvmilasky/denver-golf/issues"
+  },
+  "homepage": "https://github.com/dvmilasky/denver-golf#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "config": "^3.3.11",
+    "express": "^4.19.2"
+  }
+}
