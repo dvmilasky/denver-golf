@@ -4,7 +4,12 @@
     },
 
     "legacy_ridge": {
+        "course_id": "1",
         "base_url": "https://cityofwestminster.cps.golf",
-        "api_resource_endpoint": "/onlineresweb/Home/Configuration"
+        "api_resource_endpoint": "/onlineresweb/Home/Configuration",
+        "get_tee_times_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/TeeTimes",
+        "login_endpoint": "/identityapi/connect/token",
+        "website_id_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/GetAllOptions/cityofwestminster",
+        "book_tee_time_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/ReserveTeeTimes"
     }
 }
