@@ -8,6 +8,7 @@ import golferPaylod from './data/GolferPayload.json' assert { type: "json" };
 const legacyRidgeConfig = config.get("legacy_ridge")
 const username = process.env.LEGACY_RIDGE_USERNAME;
 const password = process.env.LEGACY_RIDGE_PASSWORD;
+const card_token = process.env.LEGACY_RIDGE_CARD_TOKEN;
 
 async function login(username, password) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.login_endpoint;
@@ -96,6 +97,8 @@ async function reserve_tee_time(tee_sheet_id, num_golfers, holes) {
     const login_token = await login(username, password);
 
     const payload = teeTimePayload;
+    payload.finalizeSaleModel.creditCardInfo.cardToken = card_token
+
     payload.bookingList[0].teeSheetId = tee_sheet_id; // Set tee time for my own golfer
     payload.bookingList[0].holes = holes; // Set num holes for my own golfer
     for (let i = 0; i < num_golfers - 1; i++) {
