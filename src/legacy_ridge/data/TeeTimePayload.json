@@ -1,0 +1,30 @@
+{
+    "bookingGolferId": 259477,
+    "firstName": "David",
+    "lastName": "Milasky",
+    "bookingList": [
+        {
+            "advancedBookingFee": null,
+            "groupNo": null,
+            "teeSheetId": null,
+            "holes": null,
+            "participantNo": 1,
+            "golferId": 259477,
+            "rateCode": "LR GW GOLFER",
+            "greenFeeCode": "GF21010"
+        }
+    ],
+    "courseId": 1,
+    "finalizeSaleModel": {
+        "acct": "85542",
+        "creditCardInfo": {
+            "cardNumber": null,
+            "cardHolder": null,
+            "expireMM": null,
+            "expireYY": null,
+            "cvv": null,
+            "email": "davidmilasky17@gmail.com",
+            "cardToken": "51878IEIYTIIQLZBL7I19681"
+        }
+    }
+}
