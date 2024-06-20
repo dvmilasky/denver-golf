@@ -12,6 +12,7 @@ const serverConfig = config.get("server_config")
 
 app.post('/', (req, res) => {
   parse_message(req.body.toLowerCase());
+  console.log(req.body);
 })
 
 app.listen(serverConfig.port, () => {

@@ -20,6 +20,7 @@ async function parse_message(text) {
     const args = text.split(" ");
     cmd = args[0];
     if (cmd == "help") {
+        console.log("Helping");
         return `
             To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n 
             To book a tee time: book <teeSheetId> <number of players> <number of holes>
