@@ -11,5 +11,9 @@
         "login_endpoint": "/identityapi/connect/token",
         "website_id_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/GetAllOptions/cityofwestminster",
         "book_tee_time_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/ReserveTeeTimes"
+    },
+
+    "groupme": {
+        "post_message_endpoint": "https://api.groupme.com/v3/bots/post"
     }
 }
