@@ -21,10 +21,11 @@ async function parse_message(text) {
     const cmd = args[0];
     if (cmd == "help") {
         console.log("Helping");
-        return `
+        const msg = `
             To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n 
             To book a tee time: book <teeSheetId> <number of players> <number of holes>
         `
+        post_message(msg);
     } 
     else if (cmd == "teetimes") {
         const teeTimes = await get_tee_times(args[1] + " " + args[2], args[3], args[4]); // TODO: Validate input
