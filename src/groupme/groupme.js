@@ -20,10 +20,7 @@ async function parse_message(text) {
     const args = text.split(" ");
     const cmd = args[0];
     if (cmd == "help") {
-        const msg = `
-            To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n 
-            To book a tee time: book <teeSheetId> <number of players> <number of holes>
-        `
+        const msg = `To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n To book a tee time: book <teeSheetId> <number of players> <number of holes>`
         post_message(msg);
     } 
     else if (cmd == "teetimes") {
