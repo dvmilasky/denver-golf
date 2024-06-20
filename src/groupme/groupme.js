@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from 'config';
-import { book_tee_time, get_tee_times } from "../legacy_ridge/legacy_ridge";
-import { parse_tee_times } from "../legacy_ridge/utils";
+import { book_tee_time, get_tee_times } from "../legacy_ridge/legacy_ridge.js";
+import { parse_tee_times } from "../legacy_ridge/utils.js";
 
 const groupmeConfig = config.get("groupme")
 const bot_id = process.env.GROUPME_BOT_ID;

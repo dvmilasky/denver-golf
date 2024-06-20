@@ -1,6 +1,6 @@
 import express from 'express';
 import config from 'config';
-import { parse_message } from './groupme/groupme';
+import { parse_message } from './groupme/groupme.js';
 
 
 const app = express();
