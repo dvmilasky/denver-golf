@@ -118,5 +118,3 @@ async function reserve_tee_time(tee_sheet_id, num_golfers, holes) {
     return res.data;
 }
 
-//console.log(await get_tee_times())
-console.log(await reserve_tee_time(373748, 4, 18));
