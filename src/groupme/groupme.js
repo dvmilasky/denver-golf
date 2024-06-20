@@ -20,7 +20,7 @@ async function parse_message(text) {
     const args = text.split(" ");
     const cmd = args[0];
     if (cmd == "help") {
-        const msg = `To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n To book a tee time: book <teeSheetId> <number of players> <number of holes>`
+        const msg = `To get tee times on a date: teetimes <month> <day> <number of players> <number of holes>\n\nTo book a tee time: book <teeSheetId> <number of players> <number of holes>`
         post_message(msg);
     } 
     else if (cmd == "teetimes") {
@@ -30,7 +30,7 @@ async function parse_message(text) {
     }
     else if (cmd == "book") {
         const msg = await book_tee_time(args[1], args[2], args[3]);
-        post_message(msg);
+        post_message(`Confirmation Code: ${msg.reservationId}`);
     }
 }
 
