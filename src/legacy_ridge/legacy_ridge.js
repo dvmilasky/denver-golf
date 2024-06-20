@@ -24,6 +24,8 @@ async function login(username, password) {
     };
     const res = await axios.post(endpoint_url, login_data, {
         headers: headers
+    }).catch(function (error) {
+        console.log("Error: " + error.message);
     });
 
     return res.data.access_token;
@@ -32,7 +34,9 @@ async function login(username, password) {
 async function get_api_key() {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.api_resource_endpoint;
 
-    const res = await axios.get(endpoint_url);
+    const res = await axios.get(endpoint_url).catch(function (error) {
+        console.log("Error: " + error.message);
+    });
     return res.data.apiKey;
 }
 
@@ -41,6 +45,8 @@ async function get_website_id(api_key) {
 
     const res = await axios.get(endpoint_url, {
         headers: build_basic_headers(api_key)
+    }).catch(function (error) {
+        console.log("Error: " + error.message);
     });
     return res.data.webSiteId;
 }
@@ -89,6 +95,8 @@ async function get_tee_times(date, num_golfers=0, holes=0) {
     const res = await axios.get(endpoint_url, {
         headers: build_basic_headers(api_key, website_id),
         params: build_tee_times_search_params(date, num_golfers, holes),
+    }).catch(function (error) {
+        console.log("Error: " + error.message);
     });
     return res.data;
 }
@@ -117,6 +125,8 @@ async function book_tee_time(tee_sheet_id, num_golfers, holes) {
 
     const res = await axios.post(endpoint_url, payload, {
         headers: build_book_tee_times_headers(api_key, website_id, login_token),
+    }).catch(function (error) {
+        console.log("Error: " + error.message);
     });
     return res.data;
 }

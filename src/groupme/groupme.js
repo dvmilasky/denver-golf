@@ -12,7 +12,9 @@ async function post_message(text) {
         "bot_id": bot_id,
         "text": text
     }
-    const res = await axios.post(endpoint, body)
+    const res = await axios.post(endpoint, body).catch(function (error) {
+        console.log("Error: " + error.message);
+    });
     return res;
 }
 
