@@ -18,7 +18,7 @@ async function post_message(text) {
 
 async function parse_message(text) {
     const args = text.split(" ");
-    cmd = args[0];
+    const cmd = args[0];
     if (cmd == "help") {
         console.log("Helping");
         return `
