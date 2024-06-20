@@ -4,7 +4,6 @@ import config from 'config';
 import teeTimePayload from './data/TeeTimePayload.json' assert { type: "json" };
 import golferPaylod from './data/GolferPayload.json' assert { type: "json" };
 
-
 const legacyRidgeConfig = config.get("legacy_ridge")
 const username = process.env.LEGACY_RIDGE_USERNAME;
 const password = process.env.LEGACY_RIDGE_PASSWORD;
@@ -47,12 +46,12 @@ async function get_website_id(api_key) {
 }
 
 
-function build_tee_times_search_params(date, holes, players) {
+function build_tee_times_search_params(date, num_golfers, holes) {
     const params = {
         "courseIds": legacyRidgeConfig.course_id,
         "searchDate": date,
         "holes": holes,
-        "players": players,
+        "numberOfPlayer": num_golfers,
         "teeOffTimeMin": 0,
         "teeOffTimeMax": 23
     };
@@ -83,18 +82,18 @@ function build_book_tee_times_headers(api_key, website_id, login_token) {
 }
 
 
-async function get_tee_times(date, holes=0, players=0) {
+async function get_tee_times(date, num_golfers=0, holes=0) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.get_tee_times_endpoint;
     const api_key = await get_api_key();
     const website_id = await get_website_id(api_key);
     const res = await axios.get(endpoint_url, {
         headers: build_basic_headers(api_key, website_id),
-        params: build_tee_times_search_params("Sat June 22 2024", "0", "0"),
+        params: build_tee_times_search_params(date, num_golfers, holes),
     });
     return res.data;
 }
 
-async function reserve_tee_time(tee_sheet_id, num_golfers, holes) {
+async function book_tee_time(tee_sheet_id, num_golfers, holes) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.book_tee_time_endpoint;
     const api_key = await get_api_key();
     const website_id = await get_website_id(api_key);
@@ -120,4 +119,9 @@ async function reserve_tee_time(tee_sheet_id, num_golfers, holes) {
         headers: build_book_tee_times_headers(api_key, website_id, login_token),
     });
     return res.data;
+}
+
+export {
+    get_tee_times,
+    book_tee_time
 }
