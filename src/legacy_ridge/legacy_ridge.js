@@ -52,16 +52,19 @@ function build_tee_times_search_params(date, holes, players) {
         "courseIds": legacyRidgeConfig.course_id,
         "searchDate": date,
         "holes": holes,
-        "players": players
+        "players": players,
+        "teeOffTimeMin": 0,
+        "teeOffTimeMax": 23
     };
 
     return params;
 }
 
-function build_basic_headers(api_key) {
+function build_basic_headers(api_key, website_id) {
     const headers = {
         "x-apikey": api_key,
-        "x-componentid": "1"
+        "x-componentid": "1",
+        "x-websiteid": website_id
     };
 
     return headers;
@@ -80,12 +83,13 @@ function build_book_tee_times_headers(api_key, website_id, login_token) {
 }
 
 
-async function get_tee_times() {
+async function get_tee_times(date, holes=0, players=0) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.get_tee_times_endpoint;
     const api_key = await get_api_key();
+    const website_id = await get_website_id(api_key);
     const res = await axios.get(endpoint_url, {
-        headers: build_basic_headers(api_key),
-        params: build_tee_times_search_params("Fri June 14 2024", "18", "4"),
+        headers: build_basic_headers(api_key, website_id),
+        params: build_tee_times_search_params("Sat June 22 2024", "0", "0"),
     });
     return res.data;
 }
@@ -117,4 +121,3 @@ async function reserve_tee_time(tee_sheet_id, num_golfers, holes) {
     });
     return res.data;
 }
-
