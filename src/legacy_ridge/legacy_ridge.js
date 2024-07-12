@@ -96,7 +96,9 @@ async function get_tee_times(date, num_golfers=0, holes=0) {
         headers: build_basic_headers(api_key, website_id),
         params: build_tee_times_search_params(date, num_golfers, holes),
     }).catch(function (error) {
-        console.log("Error: " + error.message);
+        if (error.response) {
+            console.log(error.response.data);
+        }
     });
     return res.data;
 }
