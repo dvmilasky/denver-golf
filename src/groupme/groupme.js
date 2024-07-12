@@ -8,16 +8,19 @@ const bot_id = process.env.GROUPME_BOT_ID;
 
 async function post_message(text) {
     const endpoint = groupmeConfig.post_message_endpoint;
-    const body = {
-        "bot_id": bot_id,
-        "text": text
-    }
-    const res = await axios.post(endpoint, body).catch(function (error) {
-        if (error.response) {
-            console.log(error.response.data);
+    do {
+        let chunk = text.slice(groupmeConfig.max_message_length);
+        const body = {
+            "bot_id": bot_id,
+            "text": chunk
         }
-    });
-    return res;
+        const res = await axios.post(endpoint, body).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+            }
+        });
+        text = text.slice(groupmeConfig.max_message_length);
+    } while (text.length > 0)
 }
 
 async function parse_message(text) {
