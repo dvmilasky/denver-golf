@@ -14,7 +14,6 @@
     },
 
     "groupme": {
-        "post_message_endpoint": "https://api.groupme.com/v3/bots/post",
-        "max_message_length": 900
+        "post_message_endpoint": "https://api.groupme.com/v3/bots/post"
     }
 }
