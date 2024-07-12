@@ -29,8 +29,8 @@ async function parse_message(text) {
     } 
     else if (cmd == "teetimes") {
         const teeTimes = await get_tee_times(args[1] + " " + args[2], args[3], args[4]); // TODO: Validate input
-        let done = false
-        let msg = ""
+        done = false
+        msg = ""
         do {
             msg, done = parse_tee_times(teeTimes).next();
             post_message(msg);
