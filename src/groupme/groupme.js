@@ -41,7 +41,7 @@ async function parse_message(text) {
     }
     else if (cmd == "saturday") {
         const tee_times = await get_saturday_tee_times(args[1], args[2], args[3]);
-        post_message(parse_tee_times_to_text(tee_times));
+        console.log(tee_times);
         // if (tee_times.length > 0) {
         //     let tee_sheet_to_book = tee_times[0];
         //     let start_hour = 9;
