@@ -10,7 +10,6 @@ async function post_message(text) {
     const endpoint = groupmeConfig.post_message_endpoint;
     do {
         let chunk = text.slice(0, groupmeConfig.max_message_length);
-        console.log(`CH: ${chunk}`);
         const body = {
             "bot_id": bot_id,
             "text": chunk
@@ -41,18 +40,22 @@ async function parse_message(text) {
         post_message(msg);
     }
     else if (cmd == "saturday") {
-        const tee_times = await get_saturday_tee_times(args[1], args[2], args[3]);
+        const earliest_hour = args[1];
+        const latest_hour = args[2];
+        const num_golfers = args[3];
+        const num_holes = args[4];
+
+        const tee_times = await get_saturday_tee_times(earliest_hour, latest_hour, num_golfers, num_holes);
         if (tee_times.length > 0) {
             const tee_time = tee_times.pop();
-            const msg = await book_tee_time(tee_time.teeSheetId);
-            post_message(`***********SATURDAY TEE TIME BOOKED***************\n${build_tee_time_text(tee_time)}\n${msg}`);
+            const msg = await book_tee_time(tee_time.teeSheetId, num_golfers, num_holes);
+            post_message(`********SATURDAY TEE TIME BOOKED********\n${build_tee_time_text(tee_time)}\n${msg}`);
         } else {
             post_message("Unable to book Saturday Tee Time - Try with less golfers or adjusted time window");
         }
     }
 }
 
-await parse_message("saturday 8 13 4 18");
 
 export {
     parse_message
