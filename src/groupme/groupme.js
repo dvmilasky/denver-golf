@@ -9,7 +9,8 @@ const bot_id = process.env.GROUPME_BOT_ID;
 async function post_message(text) {
     const endpoint = groupmeConfig.post_message_endpoint;
     do {
-        let chunk = text.slice(groupmeConfig.max_message_length);
+        let chunk = text.slice(0, groupmeConfig.max_message_length);
+        console.log(`CH: ${chunk}`);
         const body = {
             "bot_id": bot_id,
             "text": chunk
@@ -50,6 +51,8 @@ async function parse_message(text) {
         }
     }
 }
+
+await parse_message("saturday 8 13 4 18");
 
 export {
     parse_message

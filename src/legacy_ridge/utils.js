@@ -18,7 +18,7 @@ function build_tee_time_text(teeTime) {
     const holes = teeTime.is9HoleOnly ? 9 : 18;
     const availablePlayers = teeTime.maxPlayer;
     const text = `ID: ${teeSheetId} Time: ${date}\nHoles: ${holes} Players: ${availablePlayers}\n\n`;
-    return message;
+    return text;
 }
 
 export {
