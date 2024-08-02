@@ -11,7 +11,12 @@ const serverConfig = config.get("server_config")
 
 
 app.post('/', (req, res) => {
-  parse_message(req.body.text.toLowerCase());
+  try {
+    parse_message(req.body.text.toLowerCase());
+  }
+  catch (error) {
+    console.error(`Error processing request: ${error}`);
+  }
 })
 
 app.listen(serverConfig.port, () => {

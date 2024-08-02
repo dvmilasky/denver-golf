@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from 'config';
-import { book_tee_time, get_tee_times } from "../legacy_ridge/legacy_ridge.js";
-import { parse_tee_times } from "../legacy_ridge/utils.js";
+import { book_tee_time, get_tee_times, get_saturday_tee_times } from "../legacy_ridge/legacy_ridge.js";
+import { parse_tee_times_to_text } from "../legacy_ridge/utils.js";
 
 const groupmeConfig = config.get("groupme")
 const bot_id = process.env.GROUPME_BOT_ID;
@@ -32,12 +32,23 @@ async function parse_message(text) {
     } 
     else if (cmd == "teetimes") {
         const teeTimes = await get_tee_times(args[1] + " " + args[2], args[3], args[4]); // TODO: Validate input
-        const msg = parse_tee_times(teeTimes);
+        const msg = parse_tee_times_to_text(teeTimes);
         post_message(msg);
     }
     else if (cmd == "book") {
         const msg = await book_tee_time(args[1], args[2], args[3]);
-        post_message(`Confirmation Code: ${msg.reservationId}`);
+        post_message(msg);
+    }
+    else if (cmd == "saturday") {
+        const tee_times = await get_saturday_tee_times(args[1], args[2], args[3]);
+        post_message(parse_tee_times_to_text(tee_times));
+        // if (tee_times.length > 0) {
+        //     let tee_sheet_to_book = tee_times[0];
+        //     let start_hour = 9;
+        //     while (tee_times.length > 0) {
+
+        //     }
+        // }
     }
 }
 

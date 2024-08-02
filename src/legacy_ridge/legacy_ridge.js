@@ -9,6 +9,10 @@ const username = process.env.LEGACY_RIDGE_USERNAME;
 const password = process.env.LEGACY_RIDGE_PASSWORD;
 const card_token = process.env.LEGACY_RIDGE_CARD_TOKEN;
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
 async function login(username, password) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.login_endpoint;
     const login_data = {
@@ -87,6 +91,18 @@ function build_book_tee_times_headers(api_key, website_id, login_token) {
     return headers;
 }
 
+async function get_saturday_tee_times(earliest_hour, latest_hour, num_golfers, holes) {
+    let advanced_date = new Date();
+    advanced_date.setDate(advanced_date.getDate() + legacyRidgeConfig.max_advance_booking_days); // 2 Weeks is legacy ridge max advanced booking time
+    const booking_date = `${monthNames[advanced_date.getMonth()]} ${advanced_date.getDay()}`
+    let tee_times = await get_tee_times(booking_date, num_golfers, holes);
+
+    return tee_times.filter((teeTime) => {
+        let startTime = new Date(teeTime.startTime).getHours();
+        return startTime <= latest_hour && startTime >= earliest_hour && teeTime.holes == holes && teeTime.participants == num_golfers;
+    });
+}
+
 
 async function get_tee_times(date, num_golfers=0, holes=0) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.get_tee_times_endpoint;
@@ -97,8 +113,9 @@ async function get_tee_times(date, num_golfers=0, holes=0) {
         params: build_tee_times_search_params(date, num_golfers, holes),
     }).catch(function (error) {
         if (error.response) {
-            console.log(error.response.data);
+            console.error(error.response.data);
         }
+        return []
     });
     return res.data;
 }
@@ -129,11 +146,13 @@ async function book_tee_time(tee_sheet_id, num_golfers, holes) {
         headers: build_book_tee_times_headers(api_key, website_id, login_token),
     }).catch(function (error) {
         console.log("Error: " + error.message);
+        return "Error Booking - Check Logs"
     });
-    return res.data;
+    return `Confirmation ID: ${res.data.reservationId}`;
 }
 
 export {
     get_tee_times,
-    book_tee_time
+    book_tee_time,
+    get_saturday_tee_times
 }

@@ -1,5 +1,5 @@
 
-function parse_tee_times(tee_times) {
+function parse_tee_times_to_text(tee_times) {
     let message = "";
     if (Array.isArray(tee_times)) {
         for (const teeTime of tee_times) {
@@ -16,5 +16,5 @@ function parse_tee_times(tee_times) {
 }
 
 export {
-    parse_tee_times
+    parse_tee_times_to_text
 }
