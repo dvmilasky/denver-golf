@@ -10,10 +10,12 @@
         "get_tee_times_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/TeeTimes",
         "login_endpoint": "/identityapi/connect/token",
         "website_id_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/GetAllOptions/cityofwestminster",
-        "book_tee_time_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/ReserveTeeTimes"
+        "book_tee_time_endpoint": "/onlineres/onlineapi/api/v1/onlinereservation/ReserveTeeTimes",
+        "max_advance_booking_days": 14
     },
 
     "groupme": {
-        "post_message_endpoint": "https://api.groupme.com/v3/bots/post"
+        "post_message_endpoint": "https://api.groupme.com/v3/bots/post",
+        "max_message_length": 999
     }
 }
