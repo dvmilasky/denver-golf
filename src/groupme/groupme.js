@@ -36,7 +36,7 @@ async function parse_message(text) {
         post_message(msg);
     }
     else if (cmd == "book") {
-        const msg = await book_tee_time(args[1], args[2], args[3]);
+        const msg = await book_tee_time(args[1], args[2], args[3], args[4]);
         post_message(msg);
     }
     else if (cmd == "saturday") {
