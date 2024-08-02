@@ -92,12 +92,9 @@ function build_book_tee_times_headers(api_key, website_id, login_token) {
 }
 
 async function get_saturday_tee_times(earliest_hour, latest_hour, num_golfers, holes) {
-    let advanced_date = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Denver"}));
-    console.log(advanced_date);
+    let advanced_date = new Date();
     advanced_date.setDate(advanced_date.getDate() + legacyRidgeConfig.max_advance_booking_days); // 2 Weeks is legacy ridge max advanced booking time
-    console.log(advanced_date);
-    console.log(legacyRidgeConfig.max_advance_booking_days)
-    const booking_date = `${monthNames[advanced_date.getMonth()]} ${advanced_date.getDay()}`
+    const booking_date = `${monthNames[advanced_date.getMonth()]} ${advanced_date.getDate()}`
     let tee_times = await get_tee_times(booking_date, num_golfers, holes);
     
     return tee_times.filter((teeTime) => {
@@ -105,6 +102,7 @@ async function get_saturday_tee_times(earliest_hour, latest_hour, num_golfers, h
         return (startTime <= latest_hour && startTime >= earliest_hour && teeTime.holes == holes && teeTime.participants == num_golfers);
     });
 }
+
 async function get_tee_times(date, num_golfers=0, holes=0) {
     const endpoint_url = legacyRidgeConfig.base_url + legacyRidgeConfig.get_tee_times_endpoint;
     const api_key = await get_api_key();
@@ -116,9 +114,12 @@ async function get_tee_times(date, num_golfers=0, holes=0) {
         if (error.response) {
             console.error(error.response.data);
         }
-        return []
+        return [];
     });
-    return res.data;
+    if (Array.isArray(res.data)) {
+        return res.data;
+    }
+    return [];
 }
 
 async function book_tee_time(tee_sheet_id, num_golfers, holes) {
