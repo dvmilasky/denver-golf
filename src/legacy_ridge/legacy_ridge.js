@@ -92,7 +92,7 @@ function build_book_tee_times_headers(api_key, website_id, login_token) {
 }
 
 async function get_saturday_tee_times(earliest_hour, latest_hour, num_golfers, holes) {
-    let advanced_date = new Date();
+    let advanced_date = new Date(new Date().toLocaleString("en-US", {timeZone: 'America/Denver'}));
     advanced_date.setDate(advanced_date.getDate() + legacyRidgeConfig.max_advance_booking_days); // 2 Weeks is legacy ridge max advanced booking time
     const booking_date = `${monthNames[advanced_date.getMonth()]} ${advanced_date.getDate()}`
     let tee_times = await get_tee_times(booking_date, num_golfers, holes);

@@ -12,7 +12,8 @@ const serverConfig = config.get("server_config")
 
 app.post('/', (req, res) => {
   try {
-    parse_message(req.body.text.toLowerCase());
+    const status = parse_message(req.body.text.toLowerCase());
+    res.send("Success");
   }
   catch (error) {
     console.error(`Error processing request: ${error}`);
