@@ -49,7 +49,7 @@ async function parse_message(text) {
         if (tee_times.length > 0) {
             const tee_time = tee_times.pop();
             const msg = await book_tee_time(tee_time.teeSheetId, num_golfers, num_holes);
-            post_message(`****SATURDAY TEE TIME BOOKED****\n${build_tee_time_text(tee_time)}\n${msg}`);
+            post_message(`*****SATURDAY TEE TIME BOOKED*****\n${build_tee_time_text(tee_time)}\n${msg}`);
         } else {
             post_message("Unable to book Saturday Tee Time - Try with less golfers or adjusted time window");
         }
